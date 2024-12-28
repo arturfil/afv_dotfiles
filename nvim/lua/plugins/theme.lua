@@ -32,6 +32,27 @@
 -- {
 --     "folke/tokyonight.nvim",
 --         priority = 1000,
+--         config = function()
+--             vim.cmd("colorscheme tokyonight")
+--
+--             require("tokyonight").setup({
+--                 style = "night"
+--             })
+--         end
+-- }
+-- {
+--     "arturfil/night-wolf.nvim",
+--
+--     lazy = false,
+--     name = "night-wolf",
+--     priority = 1000,
+--     config = function()
+--         vim.cmd.colorscheme "night-wolf"
+--     end
+-- }
+-- {
+--     "folke/tokyonight.nvim",
+--         priority = 1000,
 --         config = function()them
 --             vim.cmd("colorscheme tokyonight")
 --
@@ -116,10 +137,13 @@ return
 				mocha = function(colors)
 					return {
 						-- Change the color of line numbers
-                        LineNr = {fg = "#808080" },
+						LineNr = { fg = "#808080" },
 						CursorLineNr = { fg = colors.mauve }, -- Current line number
 					}
 				end,
+			},
+			custom_highlights = {
+				WinSeparator = { fg = "#3b4261" },
 			},
 		})
 		vim.cmd.colorscheme("catppuccin")
