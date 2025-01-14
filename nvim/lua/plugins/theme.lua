@@ -61,32 +61,7 @@
 --             })
 --         end
 -- }
--- {
---          "catppuccin/nvim",
---          name = "catppuccin",
---          lazy = false,
---          priority = 1000,
---          config = function()
---              require("catppuccin").setup({
---                  -- flavour = "latte",
---                  color_overrides = {
---                      mocha = {
---                             -- base = "#181825", -- very dark purple
---                             -- mantle = "#181825"
---                             -- base = "#1e1e2e", -- light dark purple
---                             -- mantle = "#1e1e2e"
---                           base = "#1b1f20", -- gray black
---                           mantle = "#1b1f20"
---                           -- base = "#111111",  -- dark blackl
---                           -- mantle = "#111111" -- dark blackl
---                           -- base = "#090d17",
---                           -- mantle = "#090d17"
---                      }
---                  }
---              })
---              vim.cmd.colorscheme "catppuccin"
---          end
--- }
+
 
 -- theme return
 return
@@ -111,6 +86,47 @@ return
 --             })
 --         end
 -- }
+
+-- Light Theme
+-- {
+--          "catppuccin/nvim",
+--          name = "catppuccin",
+--          lazy = false,
+--          priority = 1000,
+--          config = function()
+--              require("catppuccin").setup({
+--                  flavour = "latte",
+--              })
+--              vim.cmd.colorscheme "catppuccin"
+--          end
+-- }
+
+-- Lazy
+-- {
+--   "polirritmico/monokai-nightasty.nvim",
+--   lazy = false,
+--   priority = 1000,
+--   keys = {
+--     { "<leader>tt", "<Cmd>MonokaiToggleLight<CR>", desc = "Monokai-Nightasty: Toggle dark/light theme." },
+--   },
+--   ---@module "monokai-nightasty"
+--   ---@type monokai.UserConfig
+--   opts = {
+--     dark_style_background = "default", -- default | dark | transparent | #RRGGBB
+--     light_style_background = "default", -- default | dark | transparent | #RRGGBB
+--     markdown_header_marks = true,
+--     -- hl_styles = { comments = { italic = false } },
+--     terminal_colors = function(colors) return { fg = colors.fg_dark } end,
+--   },
+--   config = function(_, opts)
+--     vim.opt.cursorline = true -- Highlight line at the cursor position
+--     vim.o.background = "dark" -- Default to dark theme
+-- 
+--     require("monokai-nightasty").load(opts)
+--   end,
+-- }
+
+-- Current catppuccin Theme
 {
 	"catppuccin/nvim",
 	name = "catppuccin",

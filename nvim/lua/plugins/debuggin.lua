@@ -6,6 +6,7 @@ return {
 			"rcarriga/nvim-dap-ui",
 			"leoluz/nvim-dap-go",
 			"mfussenegger/nvim-dap-python",
+			"microsoft/vscode-js-debug",
 			"nvim-neotest/nvim-nio",
 		},
 		config = function()
@@ -50,6 +51,56 @@ return {
 					},
 				},
 			})
+
+			-- Configure JavaScript debugging
+			require("dap").adapters["pwa-node"] = {
+				type = "server",
+				host = "localhost",
+				port = "${port}",
+				executable = {
+					command = "node",
+					args = {
+						require("mason-registry").get_package("js-debug-adapter"):get_install_path()
+							.. "/js-debug/src/dapDebugServer.js",
+						"${port}",
+					},
+				},
+			}
+
+			dap.configurations.javascript = {
+				{
+					type = "pwa-node",
+					request = "launch",
+					name = "Launch file",
+					program = "${file}",
+					cwd = "${workspaceFolder}",
+				},
+				{
+					type = "pwa-node",
+					request = "attach",
+					name = "Attach",
+					processId = require("dap.utils").pick_process,
+					cwd = "${workspaceFolder}",
+				},
+				{
+					type = "pwa-node",
+					request = "launch",
+					name = "Debug Jest Tests",
+					-- trace = true, -- include debugger info
+					runtimeExecutable = "node",
+					runtimeArgs = {
+						"./node_modules/jest/bin/jest.js",
+						"--runInBand",
+					},
+					rootPath = "${workspaceFolder}",
+					cwd = "${workspaceFolder}",
+					console = "integratedTerminal",
+					internalConsoleOptions = "neverOpen",
+				},
+			}
+
+			-- Also support TypeScript
+			dap.configurations.typescript = dap.configurations.javascript
 
 			-- Automatically open UI
 			dap.listeners.after.event_initialized["dapui_config"] = function()
