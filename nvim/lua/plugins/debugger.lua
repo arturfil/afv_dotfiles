@@ -30,7 +30,7 @@ return {
 
 			dap.configurations.typescript = {
 				{
-					name = "TypeScript: Node Current File",
+					name = "TypeScript: ts-node",
 					type = "node2",
 					request = "launch",
 					program = "${workspaceFolder}/node_modules/.bin/ts-node",
@@ -43,16 +43,37 @@ return {
 					-- outFiles = { "${workspaceFolder}/**/*.ts" }
 				},
 				{
-					name = "TypeScript: Jest Current File",
+					name = "TypeScript: ts-node-dev Server",
 					type = "node2",
 					request = "launch",
-					program = "${workspaceFolder}/node_modules/.bin/jest",
-					args = { "${file}", "--coverage", "false" },
+					runtimeExecutable = "${workspaceFolder}/node_modules/.bin/ts-node-dev", -- Use ts-node-dev for hot-reload
+					-- runtimeArgs = { "--inspect", "--transpile-only" }, -- Adjust args for your setup
+					-- args = { "${workspaceFolder}/src/app.ts" }, -- Entry point of your server
+                    runtimeArgs = { "--inspect", "--transpile-only", "--require", "tsconfig-paths/register" },
+					args = function()
+						-- Prompt user to input the entry file or select dynamically
+						local entry = vim.fn.input("Path to entry file: ", "src/index.ts", "file")
+						return { entry }
+					end,
 					cwd = vim.fn.getcwd(),
 					sourceMaps = true,
 					protocol = "inspector",
 					console = "integratedTerminal",
-					outFiles = { "${workspaceFolder}/dist/**/*.js" }, -- or build/**/*.js, etc.
+					restart = true, -- Automatically reconnect debugger after restart
+					outFiles = { "${workspaceFolder}/src/**/*.ts" },
+				},
+
+				{
+					name = "TypeScript: Jest Current File",
+					type = "node2",
+					request = "launch",
+					program = "${workspaceFolder}/node_modules/.bin/jest",
+					args = { "${file}" },
+					cwd = vim.fn.getcwd(),
+					sourceMaps = true,
+					protocol = "inspector",
+					console = "integratedTerminal",
+					outFiles = { "${workspaceFolder}/dist/**/*.js" },
 				},
 			}
 
