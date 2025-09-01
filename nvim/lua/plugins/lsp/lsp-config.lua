@@ -18,7 +18,7 @@ return {
 
 		local keymap = vim.keymap -- for conciseness
 
-		vim.filetype.add({ extension = { templ = "templ" } })
+		vim.filetype.add({ extension = { templ = "templ", odin = "odin" } })
 
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("UserLspConfig", {}),
@@ -66,11 +66,38 @@ return {
 
 				opts.desc = "Restart LSP"
 				keymap.set("n", "<leader>rs", ":LspRestart<CR>", opts) -- mapping to restart lsp if necessary
+
+				opts.desc = "Show workspace diagnostics"
+				keymap.set("n", "<leader>dw", "<cmd>Telescope diagnostics<CR>", opts)
+
+				opts.desc = "Toggle diagnostics"
+				keymap.set("n", "<leader>dt", function()
+					vim.diagnostic.enable(not vim.diagnostic.is_enabled())
+				end, opts)
 			end,
 		})
 
 		-- used to enable autocompletion (assign to every lsp server config)
 		local capabilities = cmp_nvim_lsp.default_capabilities()
+
+		-- Enhanced diagnostic configuration
+		vim.diagnostic.config({
+			virtual_text = {
+				enabled = true,
+				source = "if_many",
+				prefix = "●",
+			},
+			signs = true,
+			underline = true,
+			update_in_insert = false,
+			severity_sort = true,
+			float = {
+				border = "rounded",
+				source = "always",
+				header = "",
+				prefix = "",
+			},
+		})
 
 		-- Change the Diagnostic symbols in the sign column (gutter)
 		-- (not in youtube nvim video)
@@ -162,6 +189,19 @@ return {
 								callSnippet = "Replace",
 							},
 						},
+					},
+				})
+			end,
+			["zls"] = function()
+				lspconfig["zls"].setup({
+					capabilities = capabilities,
+				})
+			end,
+			["ols"] = function()
+				lspconfig["ols"].setup({
+					capabilities = capabilities,
+					init_options = {
+						checker_args = "-strict-style",
 					},
 				})
 			end,

@@ -20,6 +20,7 @@ return {
 				"proto",
                 "prisma",
 				"html",
+				"odin",
 			},
 
             modules = {},

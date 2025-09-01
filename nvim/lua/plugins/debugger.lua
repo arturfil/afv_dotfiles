@@ -19,6 +19,13 @@ return {
 			-- Python configuration
 			require("dap-python").setup("~/.local/share/nvim/mason/packages/debugpy/venv/bin/python")
 
+			-- Chrome configuration
+			dap.adapters.chrome = {
+				type = "executable",
+				command = "node",
+				args = { vim.fn.stdpath("data") .. "/mason/packages/chrome-debug-adapter/out/src/chromeDebug.js" }
+			}
+
 			-- TypeScript/Node configuration
 			dap.adapters.node2 = {
 				type = "executable",
@@ -39,8 +46,73 @@ return {
 					sourceMaps = true,
 					protocol = "inspector",
 					console = "integratedTerminal",
-					-- outFiles not strictly needed here, but can still be helpful for sourcemap resolution
-					-- outFiles = { "${workspaceFolder}/**/*.ts" }
+				},
+				{
+					name = "Next.js: Debug Server",
+					type = "node2",
+					request = "launch",
+					program = "${workspaceFolder}/node_modules/.bin/next",
+					args = { "dev" },
+					cwd = vim.fn.getcwd(),
+					sourceMaps = true,
+					protocol = "inspector",
+					console = "integratedTerminal",
+					restart = true,
+					env = {
+						NODE_OPTIONS = "--inspect",
+					},
+					skipFiles = {
+						"<node_internals>/**",
+						"${workspaceFolder}/node_modules/**",
+					},
+				},
+				{
+					name = "Next.js: Debug Client",
+					type = "node2",
+					request = "launch",
+					program = "${workspaceFolder}/node_modules/.bin/next",
+					args = { "dev" },
+					cwd = vim.fn.getcwd(),
+					sourceMaps = true,
+					protocol = "inspector",
+					console = "integratedTerminal",
+					restart = true,
+					env = {
+						NODE_OPTIONS = "--inspect",
+					},
+					skipFiles = {
+						"<node_internals>/**",
+						"${workspaceFolder}/node_modules/**",
+					},
+					-- This configuration will attach to the client-side code
+					port = 9229,
+				},
+				{
+					name = "Next.js: Debug Full Stack",
+					type = "node2",
+					request = "launch",
+					program = "${workspaceFolder}/node_modules/.bin/next",
+					args = { "dev" },
+					cwd = vim.fn.getcwd(),
+					sourceMaps = true,
+					protocol = "inspector",
+					console = "integratedTerminal",
+					restart = true,
+					env = {
+						NODE_OPTIONS = "--inspect",
+					},
+					skipFiles = {
+						"<node_internals>/**",
+						"${workspaceFolder}/node_modules/**",
+					},
+					-- This configuration will attach to both server and client
+					port = 9229,
+					-- Additional configuration for full stack debugging
+					serverReadyAction = {
+						pattern = "started server on .+, url: (https?://.+)",
+						uriFormat = "%s",
+						action = "debugWithChrome",
+					},
 				},
 				{
 					name = "TypeScript: ts-node-dev Server",

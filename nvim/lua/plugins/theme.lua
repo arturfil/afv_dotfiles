@@ -1,5 +1,4 @@
 return
-
 -- Light Theme
 -- {
 --          "catppuccin/nvim",
@@ -13,7 +12,6 @@ return
 --              vim.cmd.colorscheme "catppuccin"
 --          end
 -- }
-
 -- Current catppuccin Theme
 {
 	"catppuccin/nvim",
@@ -53,3 +51,28 @@ return
 		vim.cmd.colorscheme("catppuccin")
 	end,
 }
+-- {
+-- 	"ellisonleao/gruvbox.nvim",
+-- 	priority = 1000,
+-- 	config = function()
+-- 		require("gruvbox").setup({
+-- 			transparent_mode = false,
+-- 			contrast = "hard",
+-- 			palette_overrides = {
+-- 				bg0 = "#1b1f20", -- Main background
+-- 				bg1 = "#1b1f20", -- Darker background (status line)
+-- 				bg2 = "#1b1f20", -- Lighter background (line number, folding marks)
+-- 				bg3 = "#1b1f20", -- Comments, line highlighting
+-- 				bg4 = "#1b1f20", -- Dark foreground
+-- 				bg = "#1b1f20",  -- Real bg
+-- 			},
+-- 			overrides = {
+-- 				Normal = { bg = "#1b1f20" },
+-- 				NormalFloat = { bg = "#1b1f20" },
+-- 				SignColumn = { bg = "#1b1f20" },
+-- 			},
+-- 		})
+-- 		vim.cmd.colorscheme("gruvbox")
+-- 	end,
+-- 	opts = ...,
+-- }

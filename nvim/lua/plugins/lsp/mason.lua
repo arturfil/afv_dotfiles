@@ -42,6 +42,8 @@ return {
 				"prismals",
 				"pyright",
 				"templ",
+				"zls",
+				"ols",
 			},
 			-- auto-install configured servers (with lspconfig)
 			automatic_installation = true, -- not the same as ensure_installed
@@ -58,6 +60,13 @@ return {
 				"templ",
 				"pylint", -- python linter
 				"eslint_d", -- js linter
+				"flake8", -- python linter
+				"mypy", -- python type checker
+				"shellcheck", -- shell script linter
+				"markdownlint", -- markdown linter
+				"jsonlint", -- json linter
+				"yamllint", -- yaml linter
+				"golangci-lint", -- go comprehensive linter
 			},
 		})
 	end,
