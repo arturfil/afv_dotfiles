@@ -44,6 +44,7 @@ return {
 				"templ",
 				"zls",
 				"ols",
+				"texlab",
 			},
 			-- auto-install configured servers (with lspconfig)
 			automatic_installation = true, -- not the same as ensure_installed
@@ -67,6 +68,7 @@ return {
 				"jsonlint", -- json linter
 				"yamllint", -- yaml linter
 				"golangci-lint", -- go comprehensive linter
+				"latexindent", -- latex formatter
 			},
 		})
 	end,

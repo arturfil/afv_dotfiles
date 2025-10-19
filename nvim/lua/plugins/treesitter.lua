@@ -21,6 +21,8 @@ return {
                 "prisma",
 				"html",
 				"odin",
+				"latex",
+				"bibtex",
 			},
 
             modules = {},

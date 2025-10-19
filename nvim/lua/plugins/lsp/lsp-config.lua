@@ -205,6 +205,28 @@ return {
 					},
 				})
 			end,
+			["texlab"] = function()
+				lspconfig["texlab"].setup({
+					capabilities = capabilities,
+					settings = {
+						texlab = {
+							build = {
+								executable = "latexmk",
+								args = { "-pdf", "-interaction=nonstopmode", "-synctex=1", "%f" },
+								onSave = false,
+							},
+							forwardSearch = {
+								executable = "/Applications/Skim.app/Contents/SharedSupport/displayline",
+								args = { "%l", "%p", "%f" },
+							},
+							chktex = {
+								onOpenAndSave = false,
+								onEdit = false,
+							},
+						},
+					},
+				})
+			end,
 		})
 	end,
 }

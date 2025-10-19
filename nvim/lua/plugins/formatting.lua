@@ -26,6 +26,9 @@ return {
 				graphql = { "prettier" },
 				lua = { "stylua" },
 				python = { "isort", "black" },
+				odin = { "odinfmt" },
+				tex = { "latexindent" },
+				bib = { "latexindent" },
 			},
 			-- format_on_save = {
 			-- 	lsp_fallback = true,
