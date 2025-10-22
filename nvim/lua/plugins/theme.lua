@@ -41,6 +41,24 @@ return
 						-- Change the color of line numbers
 						LineNr = { fg = "#808080" },
 						CursorLineNr = { fg = colors.mauve }, -- Current line number
+
+						-- VSCode-like diagnostic colors (more subtle)
+						DiagnosticError = { fg = colors.red },
+						DiagnosticWarn = { fg = colors.yellow },
+						DiagnosticInfo = { fg = colors.sky },
+						DiagnosticHint = { fg = colors.teal },
+
+						-- Underline colors (subtle, like VSCode)
+						DiagnosticUnderlineError = { undercurl = true, sp = colors.red },
+						DiagnosticUnderlineWarn = { undercurl = true, sp = colors.yellow },
+						DiagnosticUnderlineInfo = { undercurl = true, sp = colors.sky },
+						DiagnosticUnderlineHint = { undercurl = true, sp = colors.teal },
+
+						-- Virtual text (dimmed, not in-your-face)
+						DiagnosticVirtualTextError = { fg = colors.red, bg = "NONE", italic = true },
+						DiagnosticVirtualTextWarn = { fg = "#7a6a3d", bg = "NONE", italic = true },
+						DiagnosticVirtualTextInfo = { fg = colors.sky, bg = "NONE", italic = true },
+						DiagnosticVirtualTextHint = { fg = colors.teal, bg = "NONE", italic = true },
 					}
 				end,
 			},

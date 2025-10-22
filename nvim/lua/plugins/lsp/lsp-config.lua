@@ -80,15 +80,11 @@ return {
 		-- used to enable autocompletion (assign to every lsp server config)
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 
-		-- Enhanced diagnostic configuration
+		-- VSCode-like diagnostic configuration (no inline warnings)
 		vim.diagnostic.config({
-			virtual_text = {
-				enabled = true,
-				source = "if_many",
-				prefix = "●",
-			},
-			signs = true,
-			underline = true,
+			virtual_text = false, -- Disable inline diagnostic text (like VSCode)
+			signs = true, -- Keep gutter signs
+			underline = true, -- Keep underlines on problematic code
 			update_in_insert = false,
 			severity_sort = true,
 			float = {
@@ -96,6 +92,7 @@ return {
 				source = "always",
 				header = "",
 				prefix = "",
+				style = "minimal",
 			},
 		})
 

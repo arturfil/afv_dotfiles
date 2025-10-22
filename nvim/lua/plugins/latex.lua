@@ -120,5 +120,12 @@ return {
 			},
 		},
 		ft = { "markdown", "tex" },
+		keys = {
+			{
+				"<leader>mt",
+				"<cmd>RenderMarkdown toggle<cr>",
+				desc = "Toggle Markdown Rendering",
+			},
+		},
 	},
 }
