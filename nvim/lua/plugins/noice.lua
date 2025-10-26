@@ -14,3 +14,5 @@
 --     "rcarriga/nvim-notify",
 --     }
 -- }
+--
+return {}
