@@ -1,96 +1,127 @@
-return
--- Light Theme
--- {
---          "catppuccin/nvim",
---          name = "catppuccin",
---          lazy = false,
---          priority = 1000,
---          config = function()
---              require("catppuccin").setup({
---                  flavour = "latte",
---              })
---              vim.cmd.colorscheme "catppuccin"
---          end
--- }
--- Current catppuccin Theme
-{
-	"catppuccin/nvim",
-	name = "catppuccin",
-	lazy = false,
-	priority = 1000,
-	config = function()
-		require("catppuccin").setup({
-			-- flavour = "latte",
-			color_overrides = {
-				mocha = {
-					-- base = "#181825", -- very dark purple
-					-- mantle = "#181825"
-					-- base = "#1e1e2e", -- light dark purple
-					-- mantle = "#1e1e2e"
-					base = "#1b1f20", -- gray black <- THIS
-					mantle = "#1b1f20", --           <- THIS
-					-- base = "#111111",  -- dark blackl
-					-- mantle = "#111111" -- dark blackl
-					-- base = "#090d17",
-					-- mantle = "#090d17"
+return {
+	-- GitHub theme
+	{
+		"projekt0n/github-nvim-theme",
+		lazy = false,
+		priority = 999,
+		config = function()
+			require("github-theme").setup({
+				options = {
+					transparent = false,
+					terminal_colors = true,
+					dim_inactive = false,
+					module_default = true,
+					styles = {
+						comments = "italic",
+						keywords = "bold",
+						types = "italic,bold",
+					},
 				},
-			},
-			highlight_overrides = {
-				mocha = function(colors)
-					return {
-						-- Change the color of line numbers
-						LineNr = { fg = "#808080" },
-						CursorLineNr = { fg = colors.mauve }, -- Current line number
+			})
+		end,
+	},
 
-						-- VSCode-like diagnostic colors (more subtle)
-						DiagnosticError = { fg = colors.red },
-						DiagnosticWarn = { fg = colors.yellow },
-						DiagnosticInfo = { fg = colors.sky },
-						DiagnosticHint = { fg = colors.teal },
+	-- Catppuccin theme
+	{
+		"catppuccin/nvim",
+		name = "catppuccin",
+		lazy = false,
+		priority = 1000,
+		config = function()
+			-- Store the full configuration
+			local catppuccin_config = {
+				flavour = "mocha",
+				color_overrides = {
+					mocha = {
+						base = "#1b1f20", -- gray black
+						mantle = "#1b1f20",
+					},
+				},
+				highlight_overrides = {
+					mocha = function(colors)
+						return {
+							-- Change the color of line numbers
+							LineNr = { fg = "#808080" },
+							CursorLineNr = { fg = colors.mauve }, -- Current line number
 
-						-- Underline colors (subtle, like VSCode)
-						DiagnosticUnderlineError = { undercurl = true, sp = colors.red },
-						DiagnosticUnderlineWarn = { undercurl = true, sp = colors.yellow },
-						DiagnosticUnderlineInfo = { undercurl = true, sp = colors.sky },
-						DiagnosticUnderlineHint = { undercurl = true, sp = colors.teal },
+							-- VSCode-like diagnostic colors (more subtle)
+							DiagnosticError = { fg = colors.red },
+							DiagnosticWarn = { fg = colors.yellow },
+							DiagnosticInfo = { fg = colors.sky },
+							DiagnosticHint = { fg = colors.teal },
 
-						-- Virtual text (dimmed, not in-your-face)
-						DiagnosticVirtualTextError = { fg = colors.red, bg = "NONE", italic = true },
-						DiagnosticVirtualTextWarn = { fg = "#7a6a3d", bg = "NONE", italic = true },
-						DiagnosticVirtualTextInfo = { fg = colors.sky, bg = "NONE", italic = true },
-						DiagnosticVirtualTextHint = { fg = colors.teal, bg = "NONE", italic = true },
-					}
-				end,
-			},
-			custom_highlights = {
-				WinSeparator = { fg = "#3b4261" },
-			},
-		})
-		vim.cmd.colorscheme("catppuccin")
-	end,
+							-- Underline colors (subtle, like VSCode)
+							DiagnosticUnderlineError = { undercurl = true, sp = colors.red },
+							DiagnosticUnderlineWarn = { undercurl = true, sp = colors.yellow },
+							DiagnosticUnderlineInfo = { undercurl = true, sp = colors.sky },
+							DiagnosticUnderlineHint = { undercurl = true, sp = colors.teal },
+
+							-- Virtual text (dimmed, not in-your-face)
+							DiagnosticVirtualTextError = { fg = colors.red, bg = "NONE", italic = true },
+							DiagnosticVirtualTextWarn = { fg = "#7a6a3d", bg = "NONE", italic = true },
+							DiagnosticVirtualTextInfo = { fg = colors.sky, bg = "NONE", italic = true },
+							DiagnosticVirtualTextHint = { fg = colors.teal, bg = "NONE", italic = true },
+						}
+					end,
+					latte = function(colors)
+						return {
+							-- Line numbers for light mode
+							LineNr = { fg = "#6c6f85" },
+							CursorLineNr = { fg = colors.mauve },
+
+							-- Diagnostic colors for light mode
+							DiagnosticError = { fg = colors.red },
+							DiagnosticWarn = { fg = colors.yellow },
+							DiagnosticInfo = { fg = colors.blue },
+							DiagnosticHint = { fg = colors.teal },
+
+							-- Underline colors
+							DiagnosticUnderlineError = { undercurl = true, sp = colors.red },
+							DiagnosticUnderlineWarn = { undercurl = true, sp = colors.yellow },
+							DiagnosticUnderlineInfo = { undercurl = true, sp = colors.blue },
+							DiagnosticUnderlineHint = { undercurl = true, sp = colors.teal },
+
+							-- Virtual text
+							DiagnosticVirtualTextError = { fg = colors.red, bg = "NONE", italic = true },
+							DiagnosticVirtualTextWarn = { fg = colors.yellow, bg = "NONE", italic = true },
+							DiagnosticVirtualTextInfo = { fg = colors.blue, bg = "NONE", italic = true },
+							DiagnosticVirtualTextHint = { fg = colors.teal, bg = "NONE", italic = true },
+						}
+					end,
+				},
+				custom_highlights = {
+					WinSeparator = { fg = "#3b4261" },
+				},
+			}
+
+			require("catppuccin").setup(catppuccin_config)
+
+			-- Set Catppuccin as default theme
+			vim.cmd.colorscheme("catppuccin")
+
+			-- Initialize current theme tracker
+			vim.g.current_theme = "catppuccin"
+
+			-- Theme toggle function
+			_G.toggle_theme = function()
+				if vim.g.current_theme == "catppuccin" then
+					vim.cmd.colorscheme("github_light")
+					vim.g.current_theme = "github_light"
+					-- Also toggle tmux theme to light
+					vim.fn.system("tmux set -g @catppuccin_flavour 'latte' && tmux set -g @catppuccin_status_background '#eff1f5' && tmux source-file ~/.tmux.conf")
+					print("Switched to GitHub Light")
+				else
+					vim.cmd.colorscheme("catppuccin")
+					vim.g.current_theme = "catppuccin"
+					-- Also toggle tmux theme to dark
+					vim.fn.system("tmux set -g @catppuccin_flavour 'mocha' && tmux set -g @catppuccin_status_background '#1b1f20' && tmux source-file ~/.tmux.conf")
+					print("Switched to Catppuccin Dark")
+				end
+			end
+
+			-- Create keymap for theme toggle
+			vim.keymap.set("n", "<leader>tt", _G.toggle_theme, { desc = "Toggle between GitHub Light and Catppuccin Dark" })
+		end,
+	},
 }
--- {
--- 	"ellisonleao/gruvbox.nvim",
--- 	priority = 1000,
--- 	config = function()
--- 		require("gruvbox").setup({
--- 			transparent_mode = false,
--- 			contrast = "hard",
--- 			palette_overrides = {
--- 				bg0 = "#1b1f20", -- Main background
--- 				bg1 = "#1b1f20", -- Darker background (status line)
--- 				bg2 = "#1b1f20", -- Lighter background (line number, folding marks)
--- 				bg3 = "#1b1f20", -- Comments, line highlighting
--- 				bg4 = "#1b1f20", -- Dark foreground
--- 				bg = "#1b1f20",  -- Real bg
--- 			},
--- 			overrides = {
--- 				Normal = { bg = "#1b1f20" },
--- 				NormalFloat = { bg = "#1b1f20" },
--- 				SignColumn = { bg = "#1b1f20" },
--- 			},
--- 		})
--- 		vim.cmd.colorscheme("gruvbox")
--- 	end,
--- 	opts = ...,
--- }
+

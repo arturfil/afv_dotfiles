@@ -105,13 +105,32 @@ return {
 			vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 		end
 
-		mason_lspconfig.setup_handlers({
-			-- default handler for installed servers
-			function(server_name)
-				lspconfig[server_name].setup({
-					capabilities = capabilities,
-				})
-			end,
+		-- Setup mason-lspconfig with handlers
+		mason_lspconfig.setup({
+			ensure_installed = {
+				"html",
+				"cssls",
+				"tailwindcss",
+				"svelte",
+				"lua_ls",
+				"graphql",
+				"gopls",
+				"emmet_ls",
+				"prismals",
+				"pyright",
+				"templ",
+				"zls",
+				"ols",
+				"texlab",
+			},
+			automatic_installation = true,
+			handlers = {
+				-- default handler for installed servers
+				function(server_name)
+					lspconfig[server_name].setup({
+						capabilities = capabilities,
+					})
+				end,
 			["graphql"] = function()
 				-- configure graphql language server
 				lspconfig["graphql"].setup({
@@ -225,6 +244,7 @@ return {
 					},
 				})
 			end,
-		})
+		},
+	})
 	end,
 }

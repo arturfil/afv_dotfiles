@@ -23,6 +23,7 @@ return {
 				"odin",
 				"latex",
 				"bibtex",
+				"cfg",
 			},
 
             modules = {},
