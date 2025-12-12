@@ -1,9 +1,21 @@
 return {
+	-- Oasis light theme
+	{
+		"uhs-robert/oasis.nvim",
+		lazy = false,
+		priority = 1001,
+		config = function()
+			require("oasis").setup({
+				-- Configure for light theme by default when activated
+			})
+		end,
+	},
+
 	-- GitHub theme
 	{
 		"projekt0n/github-nvim-theme",
 		lazy = false,
-		priority = 999,
+		priority = 998,
 		config = function()
 			require("github-theme").setup({
 				options = {
@@ -105,12 +117,23 @@ return {
 			-- Theme toggle function
 			_G.toggle_theme = function()
 				if vim.g.current_theme == "catppuccin" then
-					vim.cmd.colorscheme("github_light")
-					vim.g.current_theme = "github_light"
-					-- Also toggle tmux theme to light
-					vim.fn.system("tmux set -g @catppuccin_flavour 'latte' && tmux set -g @catppuccin_status_background '#eff1f5' && tmux source-file ~/.tmux.conf")
-					print("Switched to GitHub Light")
+					-- Set background to light before applying oasis
+					vim.o.background = "light"
+					-- Try to set Oasis, fallback to github_light if not available
+					local success = pcall(vim.cmd.colorscheme, "oasis")
+					if success then
+						vim.g.current_theme = "oasis"
+						print("Switched to Oasis Light")
+					else
+						vim.cmd.colorscheme("github_light")
+						vim.g.current_theme = "github_light"
+						print("Switched to GitHub Light (Oasis not available)")
+					end
+					-- Also toggle tmux theme to solarized light
+					vim.fn.system("tmux set -g @colors-solarized 'light' && tmux source-file ~/.tmux.conf")
 				else
+					-- Set background to dark before applying catppuccin
+					vim.o.background = "dark"
 					vim.cmd.colorscheme("catppuccin")
 					vim.g.current_theme = "catppuccin"
 					-- Also toggle tmux theme to dark
@@ -120,7 +143,7 @@ return {
 			end
 
 			-- Create keymap for theme toggle
-			vim.keymap.set("n", "<leader>tt", _G.toggle_theme, { desc = "Toggle between GitHub Light and Catppuccin Dark" })
+			vim.keymap.set("n", "<leader>tt", _G.toggle_theme, { desc = "Toggle between Oasis Light and Catppuccin Dark" })
 		end,
 	},
 }

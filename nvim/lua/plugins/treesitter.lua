@@ -24,6 +24,8 @@ return {
 				"latex",
 				"bibtex",
 				"cfg",
+				"cpp",
+				"c",
 			},
 
             modules = {},

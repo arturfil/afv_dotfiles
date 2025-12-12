@@ -43,6 +43,7 @@ return {
 				"zls",
 				"ols",
 				"texlab",
+				"clangd",
 			},
 			-- auto-install configured servers (with lspconfig)
 			automatic_installation = true, -- not the same as ensure_installed
@@ -67,6 +68,7 @@ return {
 				"yamllint", -- yaml linter
 				"golangci-lint", -- go comprehensive linter
 				"latexindent", -- latex formatter
+				"clang-format", -- c++ formatter
 			},
 		})
 	end,

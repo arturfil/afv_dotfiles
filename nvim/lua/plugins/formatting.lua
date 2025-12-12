@@ -29,6 +29,8 @@ return {
 				odin = { "odinfmt" },
 				tex = { "latexindent" },
 				bib = { "latexindent" },
+				cpp = { "clang-format" },
+				c = { "clang-format" },
 			},
 			-- format_on_save = {
 			-- 	lsp_fallback = true,

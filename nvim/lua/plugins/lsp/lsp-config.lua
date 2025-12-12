@@ -122,6 +122,7 @@ return {
 				"zls",
 				"ols",
 				"texlab",
+				"clangd",
 			},
 			automatic_installation = true,
 			handlers = {
@@ -242,6 +243,11 @@ return {
 							},
 						},
 					},
+				})
+			end,
+			["clangd"] = function()
+				lspconfig["clangd"].setup({
+					capabilities = capabilities,
 				})
 			end,
 		},
