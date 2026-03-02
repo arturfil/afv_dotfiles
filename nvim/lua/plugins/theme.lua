@@ -45,8 +45,10 @@ return {
 				flavour = "mocha",
 				color_overrides = {
 					mocha = {
-						base = "#1b1f20", -- gray black
-						mantle = "#1b1f20",
+						-- base = "#1b1f20", -- gray black
+                        base = "#1e1e1e",
+						-- mantle = "#1b1f20",
+                        mantle = "#1e1e1e"
 					},
 				},
 				highlight_overrides = {

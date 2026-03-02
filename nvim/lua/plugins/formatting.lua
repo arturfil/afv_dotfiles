@@ -18,6 +18,7 @@ return {
 				css = { "prettier" },
 				html = { "prettier" },
 				json = { "prettier" },
+				hcl = { "terragrunt_hclfmt" },
 				golang = { "golines" },
 				vue = { "eslint_d", "prettier" },
 				sql = { "sql-formatter" },
